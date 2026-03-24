@@ -1,0 +1,46 @@
+agent:
+  image:
+    repository: ghcr.io/kcn3333/k8s-badge-agent
+    tag: ""           # defaults to .Chart.AppVersion
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
+  port: 8000
+
+api:
+  image:
+    repository: ghcr.io/kcn3333/k8s-badge-api
+    tag: ""
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 20m
+      memory: 48Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  port: 8000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/ssl-redirect: "true"
+  host: k8s-badge.cluster.example.com
+  tls:
+    - secretName: k8s-badge-tls
+      hosts:
+        - k8s-badge.cluster.example.com
+
+cors:
+  allowedSuffix: ""
