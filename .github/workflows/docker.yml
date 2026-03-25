@@ -129,6 +129,7 @@ jobs:
 
       - name: Package and push chart
         run: |
+          OWNER_LC=$(echo "${{ env.OWNER }}" | tr '[:upper:]' '[:lower:]')
           helm package helm/k8s-badge
           helm push k8s-badge-${{ steps.version.outputs.VERSION }}.tgz \
-            oci://${{ env.REGISTRY }}/${{ env.OWNER }}/k8s-badge
+            oci://${{ env.REGISTRY }}/${OWNER_LC}/charts
