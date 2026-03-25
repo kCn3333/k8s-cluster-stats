@@ -1,19 +1,23 @@
 # k8s-badge
 
-Lightweight Kubernetes cluster monitoring API and SVG badge.
+Lightweight Kubernetes cluster monitoring — live SVG badges and JSON API.
 
-## Features
+![Build](https://github.com/kCn3333/k8s-badge/actions/workflows/docker.yml/badge.svg)
 
-- Per-node stats via k8s API + metrics-server:
-  - CPU usage & capacity
-  - RAM usage & capacity
-  - Pod count / capacity
-  - Node status (Ready / NotReady)
-  - Node role (control-plane / worker)
-- Optional CPU temperature via [server-stats](https://github.com/kCn3333/server-stats) agents
-- Live SVG badges (cluster overview + per-node)
-- 15-second TTL cache — no background loops
-- Read-only RBAC (nodes, pods, metrics.k8s.io)
+---
+
+## Architecture
+
+Two components deployed via Helm:
+
+| Component | Kind | Description |
+|---|---|---|
+| `k8s-badge-agent` | DaemonSet | Runs on every node, reads `/proc` and `/sys` — cpu%, ram%, temperature, load, uptime |
+| `k8s-badge-api` | Deployment ×1 | Merges agent data with k8s API + metrics-server, renders SVG and JSON |
+
+The API discovers agents dynamically — lists DaemonSet pods by label and calls each pod IP. No static addresses needed.
+
+---
 
 ## Endpoints
 
@@ -21,91 +25,56 @@ Lightweight Kubernetes cluster monitoring API and SVG badge.
 |---|---|
 | `GET /metrics` | Full cluster JSON |
 | `GET /metrics/{node}` | Single-node JSON |
-| `GET /badge.svg` | SVG — all nodes at a glance |
-| `GET /badge/{node}.svg` | SVG — single-node detail |
+| `GET /badge.svg` | SVG badge — all nodes (720px wide) |
+| `GET /badge/{node}.svg` | SVG badge — single node (640px wide) |
 
-### Example: embed cluster badge in a README
-
-```markdown
-![cluster status](https://k8s-badge.your-domain.com/badge.svg)
-```
-
-### Example: embed per-node badge
+### Embed in README
 
 ```markdown
-![node-1](https://k8s-badge.your-domain.com/badge/node-1.svg)
+![cluster](https://k8s-badge.cluster.kcn333.com/badge.svg)
+![master](https://k8s-badge.cluster.kcn333.com/badge/master.svg)
 ```
 
-### Example JSON response (`/metrics`)
+---
 
-```json
-{
-  "cluster": {
-    "total_nodes": 3,
-    "ready_nodes": 3,
-    "total_pods": 47
-  },
-  "nodes": [
-    {
-      "name": "node-1",
-      "ready": true,
-      "role": "worker",
-      "kubelet_version": "v1.29.0",
-      "cpu": { "capacity_cores": 8, "used_cores": 1.842, "percent": 23.0 },
-      "ram": { "capacity_mb": 16090, "used_mb": 7200, "percent": 44.8 },
-      "pods": { "running": 18, "capacity": 110, "percent": 16.4 },
-      "temperature": { "cpu_avg": null }
-    }
-  ]
-}
+## Customisation
+
+All visual constants are at the top of `api/app/svg.py`:
+
+```python
+# Colours
+BG        = "#0d1117"   # badge background
+BORDER    = "#30363d"   # border
+
+# Thresholds (green → yellow → red)
+WARN_CPU  = 70    CRIT_CPU  = 85
+WARN_RAM  = 75    CRIT_RAM  = 90
+WARN_TEMP = 55    CRIT_TEMP = 75   # °C
+
+# Dimensions (cluster badge)
+W      = 720    # total width
+BAR_W  = 90     # progress bar width
+ROW_H  = 36     # height per node row
 ```
 
-## Requirements
+---
 
-- Kubernetes cluster with **metrics-server** installed
-- Image registry accessible from the cluster
-
-## Quick start (in-cluster)
+## Deployment
 
 ```bash
-# 1. Create namespace
-kubectl create namespace monitoring
+# 1. tag → GitHub Actions builds images + chart
+git tag v0.1.0 && git push origin v0.1.0
 
-# 2. Apply RBAC
-kubectl apply -f k8s/rbac.yaml
+# 2. add to k3s-homelab/apps/base/kustomization.yaml:
+#    - k8s-badge
+git add apps/base/ && git commit -m "feat(flux): add k8s-badge" && git push
 
-# 3. Build and push your image
-docker build -t your-registry/k8s-badge:latest .
-docker push your-registry/k8s-badge:latest
-
-# 4. Edit k8s/deployment.yaml — set image and ALLOWED_CORS_SUFFIX
-kubectl apply -f k8s/deployment.yaml
+# 3. watch
+flux get helmreleases -n monitoring --watch
+kubectl get pods -n monitoring -l app.kubernetes.io/name=k8s-badge
 ```
 
-## Local development (docker-compose)
-
-```bash
-# Uses your local ~/.kube/config
-docker-compose up --build
-```
-
-## Optional: CPU temperature
-
-Deploy [server-stats](https://github.com/kCn3333/server-stats) as a DaemonSet on each node
-(or as a standalone container), then set `NODE_STATS_URLS`:
-
-```
-NODE_STATS_URLS=node-1=http://node-1:8000,node-2=http://node-2:8000
-```
-
-Temperature will appear in `/metrics` and in the per-node SVG badge.
-
-## Environment variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `ALLOWED_CORS_SUFFIX` | _(empty)_ | Domain suffix for CORS (e.g. `.your-domain.com`) |
-| `NODE_STATS_URLS` | _(empty)_ | Comma-separated `node=url` pairs for temperature |
+Requires metrics-server (`kubectl top nodes` must work).
 
 ## License
 
