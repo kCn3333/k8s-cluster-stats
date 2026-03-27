@@ -28,12 +28,7 @@ The API discovers agents dynamically — lists DaemonSet pods by label and calls
 | `GET /badge.svg` | SVG badge — all nodes (720px wide) |
 | `GET /badge/{node}.svg` | SVG badge — single node (640px wide) |
 
-### Embed in README
 
-```markdown
-![cluster](https://k8s-badge.cluster.kcn333.com/badge.svg)
-![master](https://k8s-badge.cluster.kcn333.com/badge/master.svg)
-```
 
 ---
 
