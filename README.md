@@ -2,7 +2,8 @@
 
 ![Build](https://github.com/kCn3333/k8s-badge/actions/workflows/docker.yml/badge.svg)
 
-Lightweight Kubernetes cluster monitoring — live SVG badges and JSON API.
+Lightweight Kubernetes cluster monitoring with live SVG badges.
+DaemonSet agent reads /proc and /sys on each node; central API merges data with metrics-server, renders per-node and cluster-wide badges. Deployed via OCI Helm chart, published through GitHub Actions.
 
 ![cluster](./badge.svg)
 ---
