@@ -67,9 +67,9 @@ def render_cluster_badge(metrics: dict) -> str:
     nodes   = metrics["nodes"]
 
     # ── LAYOUT ────────────────────────────────────────────────────────────────
-    W        = 720    # szerokość badge'a 
+    W        = 720    # szerokość badge'a
     ROW_H    = 36     # wysokość wiersza noda
-    HEADER_H = 58     # wysokość sekcji nagłówka
+    HEADER_H = 46     # wysokość headera — bez wiersza nagłówków kolumn
     BAR_W    = 90     # szerokość pasków CPU i RAM
 
     X_DOT    = 16
@@ -84,10 +84,15 @@ def render_cluster_badge(metrics: dict) -> str:
     X_RAM_T  = 498    # wartość %
 
     X_TEMP_L = 548    # etykieta "TEMP"
-    X_TEMP_T = 584    # wartość °C 
+    X_TEMP_T = 584    # wartość °C
 
-    X_PODS   = 664    # liczba podów — tylko running, bez "/capacity"
+    X_PODS   = 664    # liczba podów — wyrównana z headerem klastra
     # ──────────────────────────────────────────────────────────────────────────
+
+    # Dane sumaryczne klastra wyliczane z nodów
+    k8s_version  = nodes[0].get("kubelet_version", "") if nodes else ""
+    total_cores  = int(sum(n["cpu"]["capacity_cores"] for n in nodes))
+    total_ram_gb = round(sum(n["ram"]["capacity_mb"] for n in nodes) / 1024)
 
     HEIGHT = HEADER_H + len(nodes) * ROW_H + 14
 
@@ -141,24 +146,23 @@ def render_cluster_badge(metrics: dict) -> str:
   <!-- Tlo i ramka -->
   <rect width="{W}" height="{HEIGHT}" rx="{CORNER_R}" fill="{BG}" stroke="{BORDER}" stroke-width="1.5"/>
 
-  <!-- Naglowek klastra -->
+  <!-- Naglowek klastra — jedna linia z pulsujaca dioda -->
   <!-- Pulsujaca dioda — TYLKO tutaj, nie przy nazwach nodow -->
-  <circle cx="{X_DOT}" cy="27" r="{DOT_R}" fill="{cluster_color}">
+  <circle cx="{X_DOT}" cy="23" r="{DOT_R}" fill="{cluster_color}">
     <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
   </circle>
-  <text x="{X_NAME}" y="32" fill="{TEXT_MID}" font-size="13">k8s cluster</text>
-  <text x="130" y="32" fill="{cluster_color}" font-size="13" font-weight="bold">{ready_count}/{total_count} ready</text>
-  <text x="255" y="32" fill="{TEXT_DIM}" font-size="13">·</text>
-  <text x="268" y="32" fill="{TEXT_BRIGHT}" font-size="13" font-weight="bold">{cluster['total_pods']}</text>
-  <text x="296" y="32" fill="{TEXT_DIM}" font-size="13">pods</text>
+  <text x="{X_NAME}" y="28" fill="{TEXT_MID}" font-size="13">k8s cluster</text>
+  <text x="130" y="28" fill="{cluster_color}" font-size="13" font-weight="bold">{ready_count}/{total_count} ready</text>
+  <text x="212" y="28" fill="{TEXT_DIM}" font-size="13">·</text>
+  <text x="224" y="28" fill="{TEXT_MID}" font-size="12">{k8s_version}</text>
+  <text x="332" y="28" fill="{TEXT_DIM}" font-size="13">·</text>
+  <text x="344" y="28" fill="{TEXT_MID}" font-size="12">{total_cores} cores</text>
+  <text x="412" y="28" fill="{TEXT_DIM}" font-size="13">·</text>
+  <text x="424" y="28" fill="{TEXT_MID}" font-size="12">{total_ram_gb} GB</text>
+  <!-- Łączna liczba podów wyrównana do kolumny pods (X_PODS={X_PODS}) -->
+  <text x="{X_PODS}" y="28" fill="{TEXT_BRIGHT}" font-size="13" font-weight="bold" text-anchor="middle">{cluster['total_pods']}</text>
 
-  <!-- Naglowki kolumn -->
-  <text x="{X_CPU_B}" y="{HEADER_H - 6}" fill="{TEXT_DIM}" font-size="10">CPU</text>
-  <text x="{X_RAM_B}" y="{HEADER_H - 6}" fill="{TEXT_DIM}" font-size="10">RAM</text>
-  <text x="{X_TEMP_L}" y="{HEADER_H - 6}" fill="{TEXT_DIM}" font-size="10">TEMP</text>
-  <text x="{X_PODS}" y="{HEADER_H - 6}" fill="{TEXT_DIM}" font-size="10" text-anchor="middle">pods</text>
-
-  <!-- Linia pod headerem -->
+  <!-- Linia pod headerem — nagłówki kolumn usuniete (etykiety CPU/RAM/TEMP sa w kazdym wierszu) -->
   <line x1="8" y1="{HEADER_H - 1}" x2="{W - 8}" y2="{HEADER_H - 1}" stroke="{SEPARATOR}" stroke-width="1"/>
 
   {''.join(rows)}
