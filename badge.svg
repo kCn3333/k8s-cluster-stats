@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="168" viewBox="0 0 720 168">
+  <style>text { font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; }</style>
+
+  <!-- Tlo i ramka -->
+  <rect width="720" height="168" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Naglowek klastra — jedna linia z pulsujaca dioda -->
+  <!-- Pulsujaca dioda — TYLKO tutaj, nie przy nazwach nodow -->
+  <circle cx="16" cy="23" r="4" fill="#2ecc71">
+    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="32" y="28" fill="#8b949e" font-size="13">k8s cluster</text>
+  <text x="130" y="28" fill="#2ecc71" font-size="13" font-weight="bold">3/3 ready</text>
+  <text x="212" y="28" fill="#4a5568" font-size="13">·</text>
+  <text x="224" y="28" fill="#8b949e" font-size="12">v1.34.4+k3s1</text>
+  <text x="332" y="28" fill="#4a5568" font-size="13">·</text>
+  <text x="344" y="28" fill="#8b949e" font-size="12">12 cores</text>
+  <text x="412" y="28" fill="#4a5568" font-size="13">·</text>
+  <text x="424" y="28" fill="#8b949e" font-size="12">22 GB</text>
+  <!-- Łączna liczba podów wyrównana do kolumny pods (X_PODS=664) -->
+  <text x="664" y="28" fill="#c9d1d9" font-size="13" font-weight="bold" text-anchor="middle">83</text>
+
+  <!-- Linia pod headerem — nagłówki kolumn usuniete (etykiety CPU/RAM/TEMP sa w kazdym wierszu) -->
+  <line x1="8" y1="45" x2="712" y2="45" stroke="#21262d" stroke-width="1"/>
+
+  
+  <!-- ── node: master ── -->
+  <circle cx="16" cy="64" r="4" fill="#2ecc71"/>
+  <text x="32" y="68" fill="#c9d1d9" font-size="12">master</text>
+  <text x="78" y="68" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
+  <text x="210" y="68" fill="#4a5568" font-size="10">CPU</text>
+  <rect x="232" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="60" width="16" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="68" fill="#2ecc71" font-size="11">17.8%</text>
+  <text x="378" y="68" fill="#4a5568" font-size="10">RAM</text>
+  <rect x="400" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="60" width="45" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="68" fill="#2ecc71" font-size="11">50.8%</text>
+  <text x="548" y="68" fill="#4a5568" font-size="10">TEMP</text>
+  <text x="584" y="68" fill="#2ecc71" font-size="11">39.0C</text>
+  <text x="664" y="68" fill="#8b949e" font-size="11" text-anchor="middle">28</text>
+  <line x1="8" y1="81" x2="712" y2="81" stroke="#21262d" stroke-width="0.5"/>
+  <!-- ── node: worker1 ── -->
+  <circle cx="16" cy="100" r="4" fill="#2ecc71"/>
+  <text x="32" y="104" fill="#c9d1d9" font-size="12">worker1</text>
+  <text x="85" y="104" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
+  <text x="210" y="104" fill="#4a5568" font-size="10">CPU</text>
+  <rect x="232" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="96" width="26" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="104" fill="#2ecc71" font-size="11">29.8%</text>
+  <text x="378" y="104" fill="#4a5568" font-size="10">RAM</text>
+  <rect x="400" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="96" width="54" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="104" fill="#2ecc71" font-size="11">60.9%</text>
+  <text x="548" y="104" fill="#4a5568" font-size="10">TEMP</text>
+  <text x="584" y="104" fill="#f1c40f" font-size="11">59.2C</text>
+  <text x="664" y="104" fill="#8b949e" font-size="11" text-anchor="middle">20</text>
+  <line x1="8" y1="117" x2="712" y2="117" stroke="#21262d" stroke-width="0.5"/>
+  <!-- ── node: worker2 ── -->
+  <circle cx="16" cy="136" r="4" fill="#2ecc71"/>
+  <text x="32" y="140" fill="#c9d1d9" font-size="12">worker2</text>
+  <text x="85" y="140" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
+  <text x="210" y="140" fill="#4a5568" font-size="10">CPU</text>
+  <rect x="232" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="132" width="20" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="140" fill="#2ecc71" font-size="11">23.3%</text>
+  <text x="378" y="140" fill="#4a5568" font-size="10">RAM</text>
+  <rect x="400" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="132" width="56" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="140" fill="#2ecc71" font-size="11">63.2%</text>
+  <text x="548" y="140" fill="#4a5568" font-size="10">TEMP</text>
+  <text x="584" y="140" fill="#2ecc71" font-size="11">46.1C</text>
+  <text x="664" y="140" fill="#8b949e" font-size="11" text-anchor="middle">35</text>
+  
+</svg>

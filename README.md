@@ -1,11 +1,11 @@
 # k8s-badge
 
-Lightweight Kubernetes cluster monitoring — live SVG badges and JSON API.
-
 ![Build](https://github.com/kCn3333/k8s-badge/actions/workflows/docker.yml/badge.svg)
 
----
+Lightweight Kubernetes cluster monitoring — live SVG badges and JSON API.
 
+![cluster](./badge.svg)
+---
 ## Architecture
 
 Two components deployed via Helm:
