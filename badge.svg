@@ -19,7 +19,7 @@
   <text x="424" y="28" fill="#8b949e" font-size="12">22 GB</text>
   <!-- Łączna liczba podów wyrównana do kolumny pods (X_PODS=664) -->
   <text x="650" y="28" fill="#4a5568" font-size="11" text-anchor="end">pods</text>
-  <text x="664" y="28" fill="#c9d1d9" font-size="13" font-weight="bold" text-anchor="middle">83 </text>
+  <text x="664" y="28" fill="#c9d1d9" font-size="13" font-weight="bold" text-anchor="middle">87 </text>
 
   <!-- Linia pod headerem — nagłówki kolumn usuniete (etykiety CPU/RAM/TEMP sa w kazdym wierszu) -->
   <line x1="8" y1="45" x2="712" y2="45" stroke="#21262d" stroke-width="1"/>
@@ -30,41 +30,41 @@
   <text x="32" y="68" fill="#c9d1d9" font-size="12">master</text>
   <text x="78" y="68" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
   <text x="210" y="68" fill="#4a5568" font-size="10">CPU</text>
-  <rect x="232" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="60" width="23" height="8" rx="4" fill="#2ecc71"/>
-  <text x="330" y="68" fill="#2ecc71" font-size="11">26.0%</text>
+  <rect x="232" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="60" width="22" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="68" fill="#2ecc71" font-size="11">24.6%</text>
   <text x="378" y="68" fill="#4a5568" font-size="10">RAM</text>
-  <rect x="400" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="60" width="44" height="8" rx="4" fill="#2ecc71"/>
-  <text x="498" y="68" fill="#2ecc71" font-size="11">49.3%</text>
+  <rect x="400" y="60" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="60" width="49" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="68" fill="#2ecc71" font-size="11">55.1%</text>
   <text x="548" y="68" fill="#4a5568" font-size="10">TEMP</text>
-  <text x="584" y="68" fill="#2ecc71" font-size="11">38.2C</text>
-  <text x="664" y="68" fill="#8b949e" font-size="11" text-anchor="middle">27</text>
+  <text x="584" y="68" fill="#2ecc71" font-size="11">29.4C</text>
+  <text x="664" y="68" fill="#8b949e" font-size="11" text-anchor="middle">28</text>
   <line x1="8" y1="81" x2="712" y2="81" stroke="#21262d" stroke-width="0.5"/>
   <!-- ── node: worker1 ── -->
   <circle cx="16" cy="100" r="4" fill="#2ecc71"/>
   <text x="32" y="104" fill="#c9d1d9" font-size="12">worker1</text>
   <text x="85" y="104" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
   <text x="210" y="104" fill="#4a5568" font-size="10">CPU</text>
-  <rect x="232" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="96" width="26" height="8" rx="4" fill="#2ecc71"/>
-  <text x="330" y="104" fill="#2ecc71" font-size="11">29.6%</text>
+  <rect x="232" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="96" width="20" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="104" fill="#2ecc71" font-size="11">22.8%</text>
   <text x="378" y="104" fill="#4a5568" font-size="10">RAM</text>
-  <rect x="400" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="96" width="56" height="8" rx="4" fill="#2ecc71"/>
-  <text x="498" y="104" fill="#2ecc71" font-size="11">63.2%</text>
+  <rect x="400" y="96" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="96" width="65" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="104" fill="#2ecc71" font-size="11">72.3%</text>
   <text x="548" y="104" fill="#4a5568" font-size="10">TEMP</text>
-  <text x="584" y="104" fill="#f1c40f" font-size="11">58.4C</text>
-  <text x="664" y="104" fill="#8b949e" font-size="11" text-anchor="middle">21</text>
+  <text x="584" y="104" fill="#2ecc71" font-size="11">38.2C</text>
+  <text x="664" y="104" fill="#8b949e" font-size="11" text-anchor="middle">23</text>
   <line x1="8" y1="117" x2="712" y2="117" stroke="#21262d" stroke-width="0.5"/>
   <!-- ── node: worker2 ── -->
   <circle cx="16" cy="136" r="4" fill="#2ecc71"/>
   <text x="32" y="140" fill="#c9d1d9" font-size="12">worker2</text>
   <text x="85" y="140" fill="#4a5568" font-size="10"> · control-plane,etcd</text>
   <text x="210" y="140" fill="#4a5568" font-size="10">CPU</text>
-  <rect x="232" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="132" width="25" height="8" rx="4" fill="#2ecc71"/>
-  <text x="330" y="140" fill="#2ecc71" font-size="11">27.9%</text>
+  <rect x="232" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="232" y="132" width="18" height="8" rx="4" fill="#2ecc71"/>
+  <text x="330" y="140" fill="#2ecc71" font-size="11">20.4%</text>
   <text x="378" y="140" fill="#4a5568" font-size="10">RAM</text>
-  <rect x="400" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="132" width="57" height="8" rx="4" fill="#2ecc71"/>
-  <text x="498" y="140" fill="#2ecc71" font-size="11">64.2%</text>
+  <rect x="400" y="132" width="90" height="8" rx="4" fill="#21262d"/><rect x="400" y="132" width="55" height="8" rx="4" fill="#2ecc71"/>
+  <text x="498" y="140" fill="#2ecc71" font-size="11">61.6%</text>
   <text x="548" y="140" fill="#4a5568" font-size="10">TEMP</text>
-  <text x="584" y="140" fill="#2ecc71" font-size="11">43.1C</text>
-  <text x="664" y="140" fill="#8b949e" font-size="11" text-anchor="middle">35</text>
+  <text x="584" y="140" fill="#2ecc71" font-size="11">30.4C</text>
+  <text x="664" y="140" fill="#8b949e" font-size="11" text-anchor="middle">36</text>
   
 </svg>
